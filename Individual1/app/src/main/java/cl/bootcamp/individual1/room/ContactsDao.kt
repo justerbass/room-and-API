@@ -19,21 +19,6 @@ interface ContactsDao {
     @Query("SELECT * FROM contacts WHERE id = :id")
     fun getContactById(id: Int): Flow<Contacts>
 
-    @Query("SELECT * FROM contacts WHERE name = :name")
-    fun getContactByName(name: String): Flow<Contacts>
-
-    @Query("SELECT * FROM contacts WHERE phone_number = :phoneNumber")
-    fun getContactByPhoneNumber(phoneNumber: String): Flow<Contacts>
-
-    @Query("SELECT * FROM contacts WHERE email_address = :email")
-    fun getContactByEmail(email: String): Flow<Contacts>
-
-    @Query("SELECT * FROM contacts WHERE profile_image = :profileImage")
-    fun getContactByProfileImage(profileImage: Image): Flow<Contacts>
-
-    @Query("SELECT * FROM contacts WHERE birthday = :birthday")
-    fun getContactByBirthday(birthday: String): Flow<Contacts>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertContact(contact: Contacts)
 
