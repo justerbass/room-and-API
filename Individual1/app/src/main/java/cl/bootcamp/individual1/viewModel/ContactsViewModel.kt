@@ -24,15 +24,15 @@ class ContactsViewModel @Inject constructor(private val repository: ContatcsRepo
         return repository.getContactById(id)
     }
 
-    fun insertContact(contact: Contacts) = viewModelScope.launch {
+    fun insertContact(contact: Contacts) = viewModelScope.launch (Dispatchers.IO) {
         repository.insertContact(contact)
     }
 
-    fun updateContact(contact: Contacts) = viewModelScope.launch {
+    fun updateContact(contact: Contacts) = viewModelScope.launch (Dispatchers.IO) {
         repository.updateContact(contact)
     }
 
-    fun deleteContact(contact: Contacts) = viewModelScope.launch {
+    fun deleteContact(contact: Contacts) = viewModelScope.launch (Dispatchers.IO) {
         repository.deleteContact(contact)
     }
 

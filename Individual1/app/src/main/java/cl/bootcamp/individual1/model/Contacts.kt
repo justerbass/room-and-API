@@ -20,7 +20,7 @@ data class Contacts(
     val email: String,
 
     @ColumnInfo(name = "profile_image")
-    val profileImage: Image,
+    val profileImage: String,
     
     @ColumnInfo(name = "birthday")
     val birthday: String
