@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import cl.bootcamp.individual1.view.AddProfile
 import cl.bootcamp.individual1.view.HomeView
 import cl.bootcamp.individual1.viewModel.ContactsViewModel
 
@@ -15,7 +16,7 @@ fun NavManager(){
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            HomeView(navController = navController)
+            HomeView(navController = navController, viewModel)
         }
         composable("add"){
             AddProfile(navController = navController, viewModel)

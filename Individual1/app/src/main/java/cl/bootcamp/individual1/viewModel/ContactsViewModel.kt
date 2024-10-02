@@ -36,5 +36,6 @@ class ContactsViewModel @Inject constructor(private val repository: ContatcsRepo
         repository.deleteContact(contact)
     }
 
+
 }
 

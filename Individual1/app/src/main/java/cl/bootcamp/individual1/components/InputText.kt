@@ -15,6 +15,7 @@ fun InputText(
         value = value,
         onValueChange = onValueChange,
         label = { Text(hint) },
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        singleLine = true
     )
 }
