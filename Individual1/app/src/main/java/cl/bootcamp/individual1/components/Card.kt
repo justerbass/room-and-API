@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +49,6 @@ fun ProfileCard(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
-
             ,
         onClick = onClick,
         colors = CardDefaults.cardColors(Color.Blue)
@@ -57,7 +57,8 @@ fun ProfileCard(
             horizontalArrangement = Arrangement.End){
             IconButton(onClick =  deleteClick ) {
                 Icon(imageVector = Icons.Default.Delete,
-                    contentDescription = null)
+                    contentDescription = null,
+                    tint = Color.Magenta)
             }
         }
         Column(
@@ -77,32 +78,37 @@ fun ProfileCard(
             Separation()
 
             Text(
-                text = name,
+                text =  name.uppercase(),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
 
             Separation()
 
             Text(
-                text = phoneNumber,
+                text = phoneNumber.uppercase(),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
 
             Separation()
 
             Text(
-                text = email,
+                text =  email.uppercase(),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
 
             Separation()
 
-            Text(text = birthday,
+            Text(text =  birthday.uppercase(),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
         }
