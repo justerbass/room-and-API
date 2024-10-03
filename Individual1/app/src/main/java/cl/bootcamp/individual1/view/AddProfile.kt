@@ -86,9 +86,11 @@ fun saveData(viewModel: ContactsViewModel,
         )
         // Llamamos al ViewModel para insertar el contacto en la base de datos, aca llamamos al repo
         if (id != 0 ){
-            viewModel.insertContact(contact)}
-        else{
             viewModel.updateContact(contact)
+            }
+        else{
+            viewModel.insertContact(contact)
+
         }
 
         navController.navigate("home")
