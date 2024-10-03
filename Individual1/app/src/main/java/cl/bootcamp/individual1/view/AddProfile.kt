@@ -34,8 +34,8 @@ fun AddProfile(navController: NavController, viewModel: ContactsViewModel){
     val email = remember { mutableStateOf("") }
     val urlimg = remember { mutableStateOf("")}
     val birthday = remember { mutableStateOf("")}
-    if (id != 0){
-
+    if (id != 0)
+    {
        val contact = viewModel.getContactById(id).collectAsState(initial = null)
 
         name.value = contact.value?.name ?: ""
@@ -47,10 +47,16 @@ fun AddProfile(navController: NavController, viewModel: ContactsViewModel){
 
 
     Scaffold {paddingValues ->
-        Column (modifier = Modifier.padding(paddingValues).padding(15.dp).fillMaxSize()
+        Column (modifier = Modifier
+            .padding(0.dp)
+            .fillMaxSize()
             .background(Color.LightGray),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally){
+            Separation()
+            Separation()
+            Separation()
+            Separation()
             InputText(hint = "name", onValueChange = {name.value = it}, value = name.value)
             Separation()
             InputText(hint = "Phone Number", onValueChange = {phone.value = it}, value = phone.value)
@@ -71,7 +77,6 @@ fun AddProfile(navController: NavController, viewModel: ContactsViewModel){
                 birthday = birthday.value,
                 id = id
             )
-
         }
     }
 }

@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cl.bootcamp.individual1.components.ProfileCard
 import cl.bootcamp.individual1.components.Separation
@@ -25,7 +26,7 @@ import cl.bootcamp.individual1.viewModel.ContactsViewModel
 @Composable
 fun HomeView(navController: NavController, viewModel: ContactsViewModel){
     Scaffold {paddingValues ->
-        Column (modifier = Modifier.padding(paddingValues).background(Color.LightGray).fillMaxSize(),
+        Column (modifier = Modifier.padding(0.dp).background(Color.LightGray).fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
 

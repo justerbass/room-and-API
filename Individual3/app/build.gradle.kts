@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.native.tasks.artifact.kotlinArtifactsExtension
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -6,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "cl.bootcamp.integrador1"
+    namespace = "cl.bootcamp.individual3"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "cl.bootcamp.integrador1"
+        applicationId = "cl.bootcamp.individual3"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -49,10 +51,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-}
 
-kapt{
-    correctErrorTypes = true
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -73,29 +75,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-//    hilt
+    //    hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
-//    retrofit
+    //    retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
-//    room
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-
-//    coil
-    implementation("io.coil-kt:coil-compose:2.7.0")
-
-//    shimmer
-    implementation("com.valentinilk.shimmer:compose-shimmer:1.0.0")
-
-//    test
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
-    kaptAndroidTest("com.google.dagger:hilt-compiler:2.51.1")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
-    testImplementation("android.arch.core:core-testing:1.1.1")
-
+    //    navegacion
+    implementation("androidx.navigation:navigation-compose:2.7.2")
 }
