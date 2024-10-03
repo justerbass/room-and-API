@@ -52,7 +52,8 @@ fun ShowProfile(navController: NavController, viewModel: ContactsViewModel){
                 email = contact.email,
                 profileImage = contact.profileImage,
                 birthday = contact.birthday,
-                onClick = {navController.navigate("add")},
+                onClick = {navController.navigate("add")
+                          viewModel.listenID.value = contact.id},
                 deleteClick = {viewModel.deleteContact(contact)}
             )
         }

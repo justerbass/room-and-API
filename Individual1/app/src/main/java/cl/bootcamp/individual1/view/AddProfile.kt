@@ -6,6 +6,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -18,12 +19,24 @@ import cl.bootcamp.individual1.viewModel.ContactsViewModel
 @Composable
 fun AddProfile(navController: NavController, viewModel: ContactsViewModel){
 
+    val id = viewModel.listenID.value
 
     val name = remember { mutableStateOf("") }
     val phone = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
     val urlimg = remember { mutableStateOf("")}
     val birthday = remember { mutableStateOf("")}
+    if (id != 0){
+
+       val contact = viewModel.getContactById(id).collectAsState(initial = null)
+
+        name.value = contact.value?.name ?: ""
+        phone.value = contact.value?.phoneNumber ?: ""
+        email.value = contact.value?.email ?: ""
+        urlimg.value = contact.value?.profileImage ?: ""
+        birthday.value = contact.value?.birthday ?: ""
+    }
+
 
     Scaffold {paddingValues ->
         Column (modifier = Modifier.padding(paddingValues)){
@@ -44,7 +57,8 @@ fun AddProfile(navController: NavController, viewModel: ContactsViewModel){
                 phone = phone.value,
                 email = email.value,
                 urlimg = urlimg.value,
-                birthday = birthday.value
+                birthday = birthday.value,
+                id = id
             )
 
         }
@@ -58,7 +72,8 @@ fun saveData(viewModel: ContactsViewModel,
              phone: String,
              email: String,
              urlimg: String,
-             birthday: String
+             birthday: String,
+             id:Int
              ){
     Button(onClick = {
         // Crear el nuevo objeto Contacts con todos los valores
@@ -70,7 +85,12 @@ fun saveData(viewModel: ContactsViewModel,
             birthday = birthday
         )
         // Llamamos al ViewModel para insertar el contacto en la base de datos, aca llamamos al repo
-        viewModel.insertContact(contact)
+        if (id != 0 ){
+            viewModel.insertContact(contact)}
+        else{
+            viewModel.updateContact(contact)
+        }
+
         navController.navigate("home")
     }) {
 

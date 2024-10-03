@@ -1,5 +1,7 @@
 package cl.bootcamp.individual1.viewModel
 
+import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cl.bootcamp.individual1.model.Contacts
@@ -15,6 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ContactsViewModel @Inject constructor(private val repository: ContatcsRepository) : ViewModel() {
+
+    var listenID : MutableStateFlow<Int> = MutableStateFlow(0)
+
 
     fun getAllContacts(): Flow<List<Contacts>> {
         return repository.getAllContacts()
