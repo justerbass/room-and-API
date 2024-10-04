@@ -21,7 +21,7 @@ interface ApiNews {
 //    suspend fun getNews(): Response<NewsResponse>
 
     @GET(ENDPOINT + API_KEY)
-    suspend fun getNews(): NewsResponse
+    suspend fun getNews(): Response<NewsResponse>
 
     @GET("${ENDPOINT}/{id}${API_KEY}")
     suspend fun getNewsById(@Path("id") id: String?): Response<NewsResponse>
