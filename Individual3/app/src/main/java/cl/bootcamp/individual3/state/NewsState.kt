@@ -1,9 +1,10 @@
 package cl.bootcamp.individual3.state
 
+import cl.bootcamp.individual3.model.Source
+
 
 data class ArticleState(
-    val id :String? = "",
-    val name :String? = "",
+    val source: Source?,
     val author: String? = "",
     val title: String = "",
     val description: String? = "",
@@ -11,4 +12,7 @@ data class ArticleState(
     val urlToImage: String? = ""
 )
 
+data class SourceState(
+    val id :String? = "",
+    val name :String? = "")
 

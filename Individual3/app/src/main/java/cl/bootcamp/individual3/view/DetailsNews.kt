@@ -89,7 +89,7 @@ fun ContentDetailView(viewModel: NewsViewModel) {
     Separate(value = 8)
 
     // Nombre de la fuente
-    ShowText(text = state.name ?: "", title = true, maxLines = 2)
+    ShowText(text = state.source?.name ?: "", title = true, maxLines = 2)
     Separate(value = 8)
 
     // Autor

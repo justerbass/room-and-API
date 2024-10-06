@@ -15,7 +15,7 @@ class NewsRepository @Inject constructor(private val apiNews: ApiNews){
         return null
     }
 
-    suspend fun getNewsById(id: String) : NewsResponse? {
+    suspend fun getNewsById(id: String) : Article? {
         val response = apiNews.getNewsById(id)
         if (response.isSuccessful){
             return response.body()
@@ -23,12 +23,5 @@ class NewsRepository @Inject constructor(private val apiNews: ApiNews){
         return null
     }
 
-//    suspend fun getNewsByName(name: String) : NewsResponse? {
-//        val response = apiNews.getNewsByName(name)
-//        if (response.isSuccessful) {
-//            return response.body()
-//        }
-//        return null
-//    }
 
 }

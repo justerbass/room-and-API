@@ -22,7 +22,7 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
     private val _news = MutableStateFlow<List<Article>>(emptyList())
     val news = _news.asStateFlow()
 
-    var state by mutableStateOf(ArticleState())
+    var state by mutableStateOf(ArticleState(source = null))
         private set
 
 
@@ -43,21 +43,30 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
          viewModelScope.launch {
              withContext(Dispatchers.IO) {
                  val result = newsRepository.getNewsById(id)
-                 state = state.copy(
-                     name = result?.articles?.get(0)?.source?.name ?: state.name,
-                     author = result?.articles?.get(0)?.author ?: state.author,
-                     title = result?.articles?.get(0)?.title ?: state.title,
-                     description = result?.articles?.get(0)?.description ?: state.description,
-                     url = result?.articles?.get(0)?.url ?: state.url,
-                     urlToImage = result?.articles?.get(0)?.urlToImage ?: state.urlToImage
-                 )
+                 result?.let { news ->
+                     state = state.copy(
+                         source = news.source,
+                         author = news.author ?: "",
+                         title = news.title ?: "",
+                         description = news.description ?: "",
+                         url = news.url ?: "",
+                         urlToImage = news.urlToImage ?: ""
+                     )
+                 }
              }
          }
      }
 
 
      fun clean() {
-         _news.value = emptyList()
+        state = state.copy(
+            source = null,
+            author = "",
+            title = "",
+            description = "",
+            url = "",
+            urlToImage = ""
+        )
      }
 
 }

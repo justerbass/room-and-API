@@ -100,13 +100,13 @@ fun NewsItem(article: Article, navController: NavController) {
             article.urlToImage?.let { ShowImageUrl(url = it) }
             Column(modifier = Modifier.padding(horizontal = 16.dp),
                 ) {
-                ShowText(text = article.source.name, title = true, maxLines = 2)
+                article.source.name?.let { ShowText(text = it, title = true, maxLines = 2) }
 
                 Column(modifier = Modifier.padding(horizontal = 16.dp).fillMaxSize(),
                     verticalArrangement = Arrangement.Bottom) {
                     ShowText(text = article.author ?: "", title = false, maxLines = 1)
                     Separate(value = 8)
-                    ShowText(text = article.title, title = false, maxLines = 1)
+                    article.title?.let { ShowText(text = it, title = false, maxLines = 1) }
                     Separate(value = 8)
                 }
 
