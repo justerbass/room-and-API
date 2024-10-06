@@ -10,15 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-private val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
-    .addConverterFactory(GsonConverterFactory.create())
-    .build()
 
-val categoryNews = retrofit.create(ApiNews::class.java)
 
 interface ApiNews {
-//    @GET(ENDPOINT + API_KEY)
-//    suspend fun getNews(): Response<NewsResponse>
 
     @GET(ENDPOINT + API_KEY)
     suspend fun getNews(): Response<NewsResponse>
@@ -26,6 +20,6 @@ interface ApiNews {
     @GET("${ENDPOINT}/{id}${API_KEY}")
     suspend fun getNewsById(@Path("id") id: String?): Response<NewsResponse>
 
-    @GET("${ENDPOINT}/{name}${API_KEY}")
-    suspend fun getNewsByName(@Path("name") name: String?): Response<NewsResponse>
+//    @GET("${ENDPOINT}/{name}${API_KEY}")
+//    suspend fun getNewsByName(@Path("name") name: String?): Response<NewsResponse>
 }

@@ -9,15 +9,22 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NewsModule {
 
+    //siguiendo hilt
     @Singleton
     @Provides
-    fun providesRetrofit(): Retrofit{
+    @Named("BaseUrl")
+    fun provideBaseUrl() = BASE_URL
+
+    @Singleton
+    @Provides
+    fun providesRetrofit(@Named("BaseUrl") baseUrl: String): Retrofit{
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -26,10 +33,8 @@ object NewsModule {
 
     @Singleton
     @Provides
-    fun providesNewsApi(retrofit: Retrofit): ApiNews {
-        return retrofit.create(ApiNews::class.java)
-    }
-
-
+    //eliminamos el retorno y simplemente igualamos
+    fun providesNewsApi(retrofit: Retrofit): ApiNews =
+        retrofit.create(ApiNews::class.java)
 
 }
