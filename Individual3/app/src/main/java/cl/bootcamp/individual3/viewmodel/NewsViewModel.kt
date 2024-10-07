@@ -5,9 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cl.bootcamp.individual3.model.Article
+import cl.bootcamp.individual3.model.News
 import cl.bootcamp.individual3.repository.NewsRepository
-import cl.bootcamp.individual3.state.ArticleState
+import cl.bootcamp.individual3.state.NewsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,10 +19,10 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(private val newsRepository: NewsRepository) : ViewModel(){
 
-    private val _news = MutableStateFlow<List<Article>>(emptyList())
+    private val _news = MutableStateFlow<List<News>>(emptyList())
     val news = _news.asStateFlow()
 
-    var state by mutableStateOf(ArticleState(source = null))
+    var state by mutableStateOf(NewsState(source = null))
         private set
 
 
@@ -40,7 +40,6 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
     }
 
     fun getNewsById(id: String) {
-        clean()
          viewModelScope.launch {
              withContext(Dispatchers.IO) {
                  val result = newsRepository.getNewsById(id)

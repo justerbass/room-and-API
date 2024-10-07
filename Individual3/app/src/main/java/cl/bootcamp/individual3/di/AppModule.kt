@@ -34,7 +34,9 @@ object NewsModule {
     @Singleton
     @Provides
     //eliminamos el retorno y simplemente igualamos
-    fun providesNewsApi(retrofit: Retrofit): ApiNews =
-        retrofit.create(ApiNews::class.java)
+    fun providesNewsApi(retrofit: Retrofit): ApiNews {
+        return retrofit.create(ApiNews::class.java)
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package cl.bootcamp.individual3.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +25,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,8 +33,9 @@ import androidx.navigation.NavController
 import cl.bootcamp.individual3.component.Separate
 import cl.bootcamp.individual3.component.ShowImageUrl
 import cl.bootcamp.individual3.component.ShowText
-import cl.bootcamp.individual3.model.Article
-import cl.bootcamp.individual3.navigation.Screnn
+import cl.bootcamp.individual3.model.News
+
+
 import cl.bootcamp.individual3.viewmodel.NewsViewModel
 
 
@@ -73,20 +74,19 @@ fun HomeView(navController: NavController, viewModel: NewsViewModel) {
                         .padding(horizontal = 16.dp, vertical = 8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    items(news) { article ->
-                        NewsItem(article, navController)
+
+
+                    items(news) { item ->
+                        NewsItem(item, navController)
                     }
                 }
             }
         }
-
     }
-
-
 }
 
 @Composable
-fun NewsItem(article: Article, navController: NavController) {
+fun NewsItem(article: News, navController: NavController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -94,7 +94,8 @@ fun NewsItem(article: Article, navController: NavController) {
             .background(Color(0xFF1b263b)),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(16.dp),
-        onClick = {navController.navigate(Screnn.DetailsScrenn.route.replace("{id}", article.source.id?:""))
+        onClick = {navController.navigate("DetailView/${article.source.id}")
+            Log.d("Navegación", "Navegando a DetailsView con ID: ${article.source.id}")
             }
     ) {
         Box (modifier = Modifier.background(Color(0xffa8a8a8))){
@@ -110,7 +111,6 @@ fun NewsItem(article: Article, navController: NavController) {
                     article.title?.let { ShowText(text = it, title = false, maxLines = 1) }
                     Separate(value = 8)
                 }
-
             }
         }
     }

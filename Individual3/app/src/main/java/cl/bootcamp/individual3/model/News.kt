@@ -1,7 +1,7 @@
 package cl.bootcamp.individual3.model
 
 
-data class Article(
+data class News(
     val source: Source,
     val author: String?,
     val title: String?,
@@ -11,11 +11,11 @@ data class Article(
 )
 
 data class Source(
-    val id: String?,
+    val id: String,
     val name: String?
 )
 
 data class NewsResponse(
 
-    val articles: List<Article>?
+    val articles: List<News>?
 )

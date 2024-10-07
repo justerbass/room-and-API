@@ -3,7 +3,7 @@ package cl.bootcamp.individual3.state
 import cl.bootcamp.individual3.model.Source
 
 
-data class ArticleState(
+data class NewsState(
     val source: Source?,
     val author: String? = "",
     val title: String = "",
@@ -13,6 +13,6 @@ data class ArticleState(
 )
 
 data class SourceState(
-    val id :String? = "",
+    val id :String = "",
     val name :String? = "")
 

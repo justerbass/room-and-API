@@ -1,6 +1,7 @@
 package cl.bootcamp.individual3.data
 
-import cl.bootcamp.individual3.model.Article
+
+import cl.bootcamp.individual3.model.News
 import cl.bootcamp.individual3.model.NewsResponse
 import cl.bootcamp.individual3.util.Constant.Companion.API_KEY
 import cl.bootcamp.individual3.util.Constant.Companion.ENDPOINT
@@ -15,6 +16,6 @@ interface ApiNews {
     suspend fun getNews(): Response<NewsResponse>
 
     @GET("${ENDPOINT}/{id}${API_KEY}")
-    suspend fun getNewsById(@Path("id") id: String?): Response<Article>
+    suspend fun getNewsById(@Path("id") id: String): Response<News>
 
 }

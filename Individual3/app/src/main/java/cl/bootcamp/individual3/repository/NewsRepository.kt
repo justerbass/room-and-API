@@ -1,13 +1,13 @@
 package cl.bootcamp.individual3.repository
 
 import cl.bootcamp.individual3.data.ApiNews
-import cl.bootcamp.individual3.model.Article
-import cl.bootcamp.individual3.model.NewsResponse
+import cl.bootcamp.individual3.model.News
+
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(private val apiNews: ApiNews){
 
-    suspend fun getNews() : List<Article>? {
+    suspend fun getNews() : List<News>? {
         val response = apiNews.getNews()
         if (response.isSuccessful){
             return response.body()?.articles
@@ -15,7 +15,7 @@ class NewsRepository @Inject constructor(private val apiNews: ApiNews){
         return null
     }
 
-    suspend fun getNewsById(id: String) : Article? {
+    suspend fun getNewsById(id: String) : News? {
         val response = apiNews.getNewsById(id)
         if (response.isSuccessful){
             return response.body()
