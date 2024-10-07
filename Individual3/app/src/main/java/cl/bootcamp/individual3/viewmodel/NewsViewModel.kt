@@ -40,6 +40,7 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
     }
 
     fun getNewsById(id: String) {
+        clean()
          viewModelScope.launch {
              withContext(Dispatchers.IO) {
                  val result = newsRepository.getNewsById(id)

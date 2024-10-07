@@ -15,22 +15,20 @@ import cl.bootcamp.individual3.viewmodel.NewsViewModel
 fun NavManager(viewModel: NewsViewModel){
     val navController = rememberNavController()
 
-
-
     NavHost(navController = navController, startDestination = Screnn.HomeScrenn.route) {
 
         composable(Screnn.HomeScrenn.route){
             HomeView(navController, viewModel)
         }
 
-        composable(Screnn.DetailsScrenn.route, arguments = listOf(
+        composable(Screnn.DetailsScrenn.route,
+            arguments = listOf(
             navArgument("id") { type = NavType.StringType },
-            navArgument("name") { type = NavType.StringType }
-        )){
+        )
+        ) {
             val id = it.arguments?.getString("id") ?: ""
-            val name = it.arguments?.getString("name") ?: ""
 
-            DetailsNews(navController, viewModel, id, name)
+            DetailsNews(navController, viewModel, id)
         }
     }
 }

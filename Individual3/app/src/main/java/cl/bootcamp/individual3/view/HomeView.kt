@@ -94,7 +94,8 @@ fun NewsItem(article: Article, navController: NavController) {
             .background(Color(0xFF1b263b)),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(16.dp),
-        onClick = {navController.navigate(Screnn.DetailsScrenn.route)}
+        onClick = {navController.navigate(Screnn.DetailsScrenn.route.replace("{id}", article.source.id?:""))
+            }
     ) {
         Box (modifier = Modifier.background(Color(0xffa8a8a8))){
             article.urlToImage?.let { ShowImageUrl(url = it) }
