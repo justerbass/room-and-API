@@ -18,7 +18,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataSourceModule{
+class DataSourceModule {
+
     @Singleton
     @Provides
     @Named("BaseUrl")
@@ -26,7 +27,7 @@ class DataSourceModule{
 
     @Singleton
     @Provides
-    fun providesRetrofit(@Named("BaseUrl")baseUrl:String): Retrofit {
+    fun providesRetrofit(@Named("BaseUrl") baseUrl: String): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
@@ -41,6 +42,7 @@ class DataSourceModule{
     @Singleton
     @Provides
     fun DbDataSource(@ApplicationContext context: Context): DbDataSource {
+
         return Room.databaseBuilder(context, DbDataSource::class.java, "product_db")
             .fallbackToDestructiveMigration()
             .build()
@@ -49,5 +51,4 @@ class DataSourceModule{
     @Singleton
     @Provides
     fun productDao(db: DbDataSource): ProductDao = db.productDao()
-
 }
