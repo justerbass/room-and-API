@@ -6,7 +6,9 @@ import cl.bootcamp.sprint6.model.Product
 import cl.bootcamp.sprint6.model.ProductDao
 
 
-@Database(entities = [Product::class], version = 1)
+@Database(
+    entities = [Product::class],
+    version = 1)
 abstract class DbDataSource : RoomDatabase() {
     abstract fun productDao(): ProductDao
 }
