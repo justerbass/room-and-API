@@ -1,6 +1,7 @@
 package cl.bootcamp.sprint6.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,7 +12,7 @@ import cl.bootcamp.sprint6.view.HomeView
 import cl.bootcamp.sprint6.viewModel.ProductViewModel
 
 @Composable
-fun NavManager(viewModel: ProductViewModel) {
+fun NavManager(viewModel: ProductViewModel = hiltViewModel()) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "Home") {

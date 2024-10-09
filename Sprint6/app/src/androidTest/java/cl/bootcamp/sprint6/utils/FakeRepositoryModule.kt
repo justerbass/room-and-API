@@ -38,15 +38,35 @@ class FakeRepositoryModule {
                 credit = true
             )
             product.value = productList.toMutableList().apply { add(newProduct) }
-            return newProduct
-        }
+            return ArrayList(product.value.map { product ->
+                ProductResults(
+                    product.id,
+                    product.name,
+                    product.price,
+                    product.image,
+                    product.description,
+                    product.lastPrice,
+                    product.credit
+                )
+
+            })}
 
         override suspend fun getProductById(id: Int): ProductResults {
-            TODO("Not yet implemented")
+            val product = product.value.find { it.id == id }
+                ?: throw IllegalArgumentException("Product with ID $id not found")
+            return ProductResults(
+                product.id,
+                product.name,
+                product.price,
+                product.image,
+                product.description,
+                product.lastPrice,
+                product.credit
+            )
         }
 
         override fun getAllProductsRoom(): Flow<List<Product>> {
-            TODO("Not yet implemented")
+            return product
         }
 
     }
