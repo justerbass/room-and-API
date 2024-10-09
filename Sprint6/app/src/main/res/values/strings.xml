@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Sprint6</string>
+
+<string name="home_title">Home</string>
+<string name="details_title">Detalles de %1$s</string> <!-- %1$s será reemplazado por el nombre del producto -->
+<string name="nombre_label">Nombre:</string>
+<string name="precio_label">Precio:</string>
+<string name="descripcion_label">Descripción:</string>
+<string name="ultimo_precio_label">Último Precio:</string>
+<string name="credito_label">Acepta Crédito</string>
+<string name="efectivo_label">Solo Efectivo</string>
+<string name="send_email">Enviar Correo</string>
+<string name="email_subject">Consulta sobre %1$s - Id: %2$d</string> <!-- %1$s será el nombre del producto y %2$d será el id -->
+<string name="email_message">Hola,\n\nSomos parte del equipo de contacto de Wallet. ¿Te animas a que podamos contactarte para poder recibir información importante?\n\nNúmero de Contacto: ___\n\nGracias.</string>
 </resources>

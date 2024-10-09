@@ -11,6 +11,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import cl.bootcamp.sprint6.ui.theme.Color3
+import cl.bootcamp.sprint6.ui.theme.Color4
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,7 +24,7 @@ fun TopBarComponent(
     TopAppBar(
         title = { Text(text = titulo, color = Color.White, fontWeight = FontWeight.Bold) },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF286963)
+            containerColor = Color3
         ),
         navigationIcon = {
             if (mostrarBotton) {
@@ -30,7 +32,7 @@ fun TopBarComponent(
                     Icon(
                         Icons.AutoMirrored.Default.ArrowBack,
                         "",
-                        tint = Color.White
+                        tint = Color4
                     )
                 }
             }

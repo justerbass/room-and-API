@@ -2,6 +2,7 @@ package cl.bootcamp.sprint6.view
 
 import android.content.Intent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cl.bootcamp.sprint6.R
 import cl.bootcamp.sprint6.component.TopBarComponent
+import cl.bootcamp.sprint6.ui.theme.Color2
 import cl.bootcamp.sprint6.viewModel.ProductViewModel
 import coil.compose.rememberAsyncImagePainter
 
@@ -43,10 +45,10 @@ fun DetailsView(viewModel: ProductViewModel, navController: NavController, id: I
     Scaffold (modifier = Modifier.fillMaxSize()
         , topBar = {
             TopBarComponent(
-            titulo = "Home",
-            mostrarBotton = true,
-            onClick = { navController.popBackStack() }
-        )
+                titulo = stringResource(id = R.string.details_title, viewModel.state.name),
+                mostrarBotton = true
+            ) { navController.popBackStack() }
+
         })
 
     {
@@ -62,24 +64,15 @@ fun ContentDetailView(
     val state = viewModel.state
     val context = LocalContext.current
     val image = rememberAsyncImagePainter(model = state.image)
-    var nuevoNombre = state.name.replace(" ", "_")
-    var email = "${nuevoNombre}@hotmail.com"
-    var asunto = "Formulario de Contacto - ${state.name}"
-    var mensaje = """Hola
-        
-        Somos parte del equipo de contacto de Wallet, Te animas a que podamos
-        contactarte, para poder recibir información importante.
-        
-        Número de Contacto: _________
-        
-        Gracias.
-    """.trimIndent()
+    var email = "info@novaera.cl"
+    var mensaje = stringResource(id = R.string.email_message)
 
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
+            .background(Color2)
     ) {
         Image(
             painter = image,
@@ -96,18 +89,15 @@ fun ContentDetailView(
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                Text(
-                    text = "nombre: " + " ${state.name}",
-                    fontWeight = FontWeight.Bold
-                )
+                Text(text = stringResource(id = R.string.nombre_label) + " ${state.name}", fontWeight = FontWeight.Bold)
                 HorizontalDivider()
-                Text(text = "Precio: ${state.price}", fontWeight = FontWeight.Bold)
+                Text(text = stringResource(id = R.string.precio_label) + ": ${state.price}", fontWeight = FontWeight.Bold)
                 HorizontalDivider()
-                Text(text = "descripcion: ${state.description}", fontWeight = FontWeight.Bold)
+                Text(text = stringResource(id = R.string.descripcion_label) + ": ${state.description}", fontWeight = FontWeight.Bold)
                 HorizontalDivider()
-                Text(text = "ultimo Precio: ${state.lastPrice}", fontWeight = FontWeight.Bold)
+                Text(text = stringResource(id = R.string.ultimo_precio_label) + ": ${state.lastPrice}", fontWeight = FontWeight.Bold)
                 HorizontalDivider()
-                Text(text = "Credito: ${state.credit}", fontWeight = FontWeight.Bold)
+                Text(text = if (state.credit == true) stringResource(id = R.string.credito_label) else stringResource(id = R.string.efectivo_label), fontWeight = FontWeight.Bold)
                 HorizontalDivider()
             }
             Button(
@@ -115,12 +105,11 @@ fun ContentDetailView(
                     val intent = Intent(Intent.ACTION_SEND)
                     val emailAddress = arrayOf(email)
                     intent.putExtra(Intent.EXTRA_EMAIL, emailAddress)
-                    intent.putExtra(Intent.EXTRA_SUBJECT, asunto)
                     intent.putExtra(Intent.EXTRA_TEXT, mensaje)
                     intent.type = "message/rfc822"
                     context.startActivity(Intent.createChooser(intent, "Email del cliente"))
                 }
-            ) { Text(text = "Enviar Correo") }
+            ) { Text(text = stringResource(id = R.string.send_email)) }
         }
     }
 }

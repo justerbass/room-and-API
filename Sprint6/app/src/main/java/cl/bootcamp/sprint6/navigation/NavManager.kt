@@ -20,7 +20,7 @@ fun NavManager(viewModel: ProductViewModel) {
             HomeView(viewModel, navController)
         }
 
-        composable("Detail/{id}",
+        composable("DetailsView/{id}",
             arguments = listOf(navArgument("id") { type = NavType.IntType }))
         {
             val id = it.arguments?.getInt("id") ?: 0

@@ -1,6 +1,7 @@
 package cl.bootcamp.sprint6.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import cl.bootcamp.sprint6.ui.theme.Color2
+import cl.bootcamp.sprint6.ui.theme.Color4
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
@@ -37,7 +40,8 @@ fun CardProdut(
             .clickable { onClick() }
             .shadow(5.dp),
         shape = RoundedCornerShape(5.dp),
-        elevation = CardDefaults.cardElevation(11.dp)
+        elevation = CardDefaults.cardElevation(11.dp),
+        colors = CardDefaults.cardColors(Color2)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
@@ -51,8 +55,8 @@ fun CardProdut(
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
-                Text(text = nombre, fontWeight = FontWeight.Bold)
-                Text(text = precio.toString(), color = Color.Gray)
+                Text(text = nombre, fontWeight = FontWeight.Bold, color = Color4)
+                Text(text = precio.toString(), color = Color4)
             }
         }
     }
