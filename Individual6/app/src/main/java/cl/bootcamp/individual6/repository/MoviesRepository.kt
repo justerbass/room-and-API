@@ -5,12 +5,16 @@ import cl.bootcamp.individual6.datasource.RestDataSource
 import cl.bootcamp.individual6.model.Movie
 import cl.bootcamp.individual6.model.MoviesDao
 import cl.bootcamp.individual6.model.MoviesEntity
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface MoviesRepository {
     suspend fun getMoviesFomrtApi(page:Int) : List<Movie>
     suspend fun getMoviesFromDb() : Flow<List<MoviesEntity>>
+
+    suspend fun getPOneMovie(id: Int) : MoviesEntity
+    suspend fun deleteMovie(toDelete: MoviesEntity)
 }
 
 class MoviesRepositoryImp @Inject constructor(
@@ -46,5 +50,22 @@ class MoviesRepositoryImp @Inject constructor(
     override suspend fun getMoviesFromDb(): Flow<List<MoviesEntity>> {
         return moviesDao.getMovies()
     }
+
+    override suspend fun getPOneMovie(id: Int): MoviesEntity {
+        delay(2000)
+        val movieEntiti = moviesDao.getOneMovie(id)
+
+        val movie = MoviesEntity(
+            id = movieEntiti.id,
+            original_title = movieEntiti.original_title,
+            poster_path = movieEntiti.poster_path,
+            release_date = movieEntiti.release_date,
+            vote_average = movieEntiti.vote_average
+        )
+        moviesDao.insertOneMovie(movie)
+        return movie
+    }
+
+    override suspend fun deleteMovie(toDelete: MoviesEntity) = moviesDao.deleteMovie(toDelete)
 
 }

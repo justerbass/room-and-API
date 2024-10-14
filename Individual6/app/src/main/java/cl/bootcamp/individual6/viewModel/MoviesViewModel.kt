@@ -21,11 +21,11 @@ class MoviesViewModel @Inject constructor(private val repository: MoviesReposito
     val state: StateFlow<MovieState> = _state
 
     init {
-        loadMovies(1)
+
     }
 
     fun loadMovies(page: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.value = MovieState(isLoading = true)
             Log.d("MoviesViewModel", "Loading movies for page: $page")
             try {
@@ -55,5 +55,18 @@ class MoviesViewModel @Inject constructor(private val repository: MoviesReposito
 
             }
         }
+    }
+
+    fun loadOneMovie(id:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val movie = repository.getPOneMovie(id)
+                _state.value = MovieState(selectedMovie = movie)
+            }catch (e: Exception){
+                _state.value = MovieState(error = e.message)
+            }
+
+        }
+
     }
 }

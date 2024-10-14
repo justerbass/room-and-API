@@ -40,13 +40,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun MoviesScreen(viewModel: MoviesViewModel) {
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
         Log.d("MoviesScreen", "MoviesScreen LaunchedEffect called")
-        viewModel.loadMovies(1) // Cargar películas cuando se inicia la pantalla
+        viewModel.loadMoviesFromDb() // Cargar películas cuando se inicia la pantalla
     }
 
     // Revisar aquí
@@ -69,6 +70,9 @@ fun MoviesScreen(viewModel: MoviesViewModel) {
         }
     }
 }
+
+
+
 
 
 @Composable
