@@ -15,7 +15,7 @@ interface RestDataSource {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("page") page: Int = 1,
         @Query("language") language: String = "en-US",
-    ): Response<MovieResponse>
+    ): MovieResponse
 
 
 }
