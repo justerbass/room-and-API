@@ -30,13 +30,23 @@ class MoviesViewModel @Inject constructor(private val repository: MoviesReposito
 
     val isLoading: Flow<Boolean> get() = _isLoading
 
-    fun addMovie(){
-        if(!_isLoading.value){
+    private fun loadMoviesFromDb() {
+        viewModelScope.launch {
+            repository.getMoviesFromDb().collect { moviesList ->
+                _state.value = _state.value.copy(movies = moviesList)
+            }
+        }
+    }
+
+
+    fun addMovie(index:Int) {
+        if (!_isLoading.value) {
             viewModelScope.launch(Dispatchers.IO) {
                 _isLoading.value = true
-                repository.getOneMoviewFromApi()
+                val newMovie = repository.getOneMoviewFromApi(index)
                 _isLoading.value = false
-
+                // Cargar de nuevo las películas después de agregar
+                loadMoviesFromDb()
             }
         }
     }

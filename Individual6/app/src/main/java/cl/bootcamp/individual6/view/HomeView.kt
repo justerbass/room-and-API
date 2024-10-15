@@ -11,13 +11,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import cl.bootcamp.individual6.model.MoviesEntity
 import cl.bootcamp.individual6.viewModel.MoviesViewModel
 import coil.compose.rememberAsyncImagePainter
 
@@ -47,7 +51,7 @@ fun HomeView(
                 title = { Text("movies", color = Color.White) },
                 actions = {
                     IconButton(
-                        onClick = { viewModel.addMovie() }
+                        onClick = { viewModel.addMovie(viewModel.state.value.movies.size) }
                     ) {
                         Icon(Icons.Default.Add, "Add", tint = Color.White)
                     }
@@ -76,47 +80,53 @@ fun ContentHomeView(
             .padding(paddingValues)
             .padding(8.dp)
     ) {
-        var userCount = movies.size
-        if (isLoading) userCount++
+        items(movies) { movie ->
+            MovieCard(movie = movie, onDelete = { viewModel.deleteMovie(movie) })
+        }
 
-        items(count = userCount) { index ->
-            var auxIndex = index
+        // Muestra un mensaje de carga o un mensaje si no hay películas
+        if (isLoading) {
+            item {
+                CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+            }
+        } else if (movies.isEmpty()) {
+            item {
+                Text("No hay películas disponibles", modifier = Modifier.padding(16.dp))
+            }
+        }
+    }
+}
 
-            val movie = movies[auxIndex]
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                elevation = CardDefaults.cardElevation(1.dp),
-                modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-                    .fillMaxWidth()
+
+@Composable
+fun MovieCard(movie: MoviesEntity, onDelete: () -> Unit) {
+    Card(
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(1.dp),
+        modifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(8.dp)
+        ) {
+            Image(
+                modifier = Modifier.size(50.dp),
+                painter = rememberAsyncImagePainter(model = movie.poster_path),
+                contentDescription = null,
+                contentScale = ContentScale.FillHeight
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Column(
+                modifier = Modifier.weight(1f)
             ) {
-                Row(
-                    modifier = Modifier
-                        .padding(8.dp)
-                ) {
-                    Image(
-                        modifier = Modifier.size(50.dp),
-                        painter = rememberAsyncImagePainter(
-                            model = movie.poster_path
-                        ),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillHeight
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Column(
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text("${movie.original_title} ")
-                        Text(movie.release_date)
-                        Text(movie.vote_average.toString())
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    IconButton(
-                        onClick = { viewModel.deleteMovie(movie) }
-                    ) {
-                        Icon(Icons.Default.Delete, "Delete")
-                    }
-                }
+                Text(movie.original_title)
+                Text(movie.release_date)
+                Text(movie.vote_average.toString())
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            IconButton(onClick = onDelete) {
+                Icon(Icons.Default.Delete, "Delete")
             }
         }
     }

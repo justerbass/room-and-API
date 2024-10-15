@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 interface MoviesRepository {
 
-    suspend fun getOneMoviewFromApi(): MoviesEntity
+    suspend fun getOneMoviewFromApi(index :Int): MoviesEntity
     fun getMoviesFromDb(): Flow<List<MoviesEntity>>
     suspend fun deleteMovie(toDelete: MoviesEntity)
 }
@@ -22,18 +22,24 @@ class MoviesRepositoryImp @Inject constructor(
     private val moviesDao: MoviesDao
 ) : MoviesRepository {
 
-    override suspend fun getOneMoviewFromApi(): MoviesEntity {
+    override suspend fun getOneMoviewFromApi(index: Int): MoviesEntity {
 
-        val response = restDataSource.getMovies().results[0]
-        val movie = MoviesEntity(
-            id = response.id,
-            original_title = response.original_title,
-            poster_path = IMAGE_BASE_URL + response.poster_path,
-            release_date = response.release_date,
-            vote_average = response.vote_average
-        )
-        moviesDao.insertOneMovie(movie)
-        return movie
+        val response = restDataSource.getMovies().results
+        if (response.isNotEmpty() && index in response.indices) {
+            val movieResponse = response[index] // Usa el índice proporcionado
+
+            val movie = MoviesEntity(
+                id = movieResponse.id,
+                original_title = movieResponse.original_title,
+                poster_path = IMAGE_BASE_URL + movieResponse.poster_path,
+                release_date = movieResponse.release_date,
+                vote_average = movieResponse.vote_average
+            )
+            moviesDao.insertOneMovie(movie)
+            return movie
+        } else {
+            throw Exception("Índice fuera de rango o no hay películas disponibles.")
+        }
     }
 
     override fun getMoviesFromDb(): Flow<List<MoviesEntity>> {
