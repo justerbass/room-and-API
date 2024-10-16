@@ -34,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cl.bootcamp.individual6.model.MoviesEntity
@@ -51,7 +52,8 @@ fun HomeView(
                 title = { Text("movies", color = Color.White) },
                 actions = {
                     IconButton(
-                        onClick = { viewModel.addMovie(viewModel.state.value.movies.size) }
+                        onClick = { viewModel.addMovie() },
+                        Modifier.testTag("addMovieButton")
                     ) {
                         Icon(Icons.Default.Add, "Add", tint = Color.White)
                     }
@@ -106,6 +108,7 @@ fun MovieCard(movie: MoviesEntity, onDelete: () -> Unit) {
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
             .fillMaxWidth()
+            .testTag("movieCard")
     ) {
         Row(
             modifier = Modifier.padding(8.dp)
@@ -125,7 +128,10 @@ fun MovieCard(movie: MoviesEntity, onDelete: () -> Unit) {
                 Text(movie.vote_average.toString())
             }
             Spacer(modifier = Modifier.width(16.dp))
-            IconButton(onClick = onDelete) {
+            IconButton(
+                onClick = onDelete,
+                modifier = Modifier.testTag("deleteMovieButton")
+                ) {
                 Icon(Icons.Default.Delete, "Delete")
             }
         }

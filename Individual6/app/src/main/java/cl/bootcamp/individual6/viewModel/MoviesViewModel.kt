@@ -28,9 +28,11 @@ class MoviesViewModel @Inject constructor(private val repository: MoviesReposito
         MutableStateFlow<Boolean>(false)
     }
 
+    private var nexIndex = 0
+
     val isLoading: Flow<Boolean> get() = _isLoading
 
-    private fun loadMoviesFromDb() {
+    fun loadMoviesFromDb() {
         viewModelScope.launch {
             repository.getMoviesFromDb().collect { moviesList ->
                 _state.value = _state.value.copy(movies = moviesList)
@@ -39,11 +41,12 @@ class MoviesViewModel @Inject constructor(private val repository: MoviesReposito
     }
 
 
-    fun addMovie(index:Int) {
+    fun addMovie() {
         if (!_isLoading.value) {
             viewModelScope.launch(Dispatchers.IO) {
                 _isLoading.value = true
-                val newMovie = repository.getOneMoviewFromApi(index)
+                repository.getOneMovieFromApi(nexIndex)
+                nexIndex++
                 _isLoading.value = false
                 // Cargar de nuevo las películas después de agregar
                 loadMoviesFromDb()
@@ -54,8 +57,11 @@ class MoviesViewModel @Inject constructor(private val repository: MoviesReposito
     fun deleteMovie(toDelete: MoviesEntity){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteMovie(toDelete)
+            nexIndex--
         }
 
     }
+
+
 
 }
