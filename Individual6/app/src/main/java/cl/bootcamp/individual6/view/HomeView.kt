@@ -53,7 +53,7 @@ fun HomeView(
                 actions = {
                     IconButton(
                         onClick = { viewModel.addMovie() },
-                        Modifier.testTag("addMovieButton")
+
                     ) {
                         Icon(Icons.Default.Add, "Add", tint = Color.White)
                     }
@@ -86,7 +86,6 @@ fun ContentHomeView(
             MovieCard(movie = movie, onDelete = { viewModel.deleteMovie(movie) })
         }
 
-        // Muestra un mensaje de carga o un mensaje si no hay películas
         if (isLoading) {
             item {
                 CircularProgressIndicator(modifier = Modifier.padding(16.dp))
@@ -108,7 +107,6 @@ fun MovieCard(movie: MoviesEntity, onDelete: () -> Unit) {
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
             .fillMaxWidth()
-            .testTag("movieCard")
     ) {
         Row(
             modifier = Modifier.padding(8.dp)
@@ -130,7 +128,6 @@ fun MovieCard(movie: MoviesEntity, onDelete: () -> Unit) {
             Spacer(modifier = Modifier.width(16.dp))
             IconButton(
                 onClick = onDelete,
-                modifier = Modifier.testTag("deleteMovieButton")
                 ) {
                 Icon(Icons.Default.Delete, "Delete")
             }
